@@ -79,22 +79,18 @@ def unitary_operator_lab(t, hbar, E_mean, V_I_amplitude, V_Q_amplitude, V_signal
     return U
 
 
-# ----------------------------- Time evolution of Qubit state -----------------------------
-# Select a sequence of single-qubit gates and set the appropriate detuning and I/Q coupling strengths
+# Select the single-qubit gates by uncommenting/commenting
 gate_sequence = [
-    #{"gate": "H", "Delta_eff": -10e-6,  "V_I_mag": -10e-6, "V_Q_mag": 10e-9},
-    #{"gate": "H", "Delta_eff": -10e-6,  "V_I_mag": -10e-6, "V_Q_mag": 10e-9},
-    {"gate": "X", "Delta_eff": 10e-9, "V_I_mag": 10e-6, "V_Q_mag": 10e-9},
-    #{"gate": "X", "Delta_eff": 10e-9, "V_I_mag": 10e-6, "V_Q_mag": 10e-9},
-    {"gate": "Y", "Delta_eff": 10e-9, "V_I_mag": 10e-9, "V_Q_mag": 10e-6},
-    #{"gate": "Z", "Delta_eff": 10e-6, "V_I_mag": 10e-9, "V_Q_mag": 10e-9},
-    #{"gate": "S", "Delta_eff": -10e-6, "V_I_mag": 10e-9, "V_Q_mag": 10e-9},
-    #{"gate": "T", "Delta_eff": -10e-6, "V_I_mag": 10e-9, "V_Q_mag": 10e-9},
-    #{"gate": "H", "Delta_eff": -10e-6,  "V_I_mag": -10e-6, "V_Q_mag": 10e-9},
-    {"gate": "H", "Delta_eff": -10e-6,  "V_I_mag": -10e-6, "V_Q_mag": 10e-9},
+    #{"gate": "H", "Delta": -10e-6,  "V_I_mag": -10e-6, "V_Q_mag": 10e-9},
+    {"gate": "X", "Delta": 10e-9, "V_I_mag": 10e-6, "V_Q_mag": 10e-9},
+    #{"gate": "Y", "Delta": 10e-9, "V_I_mag": 10e-9, "V_Q_mag": 10e-6},
+    #{"gate": "Z", "Delta": 10e-6, "V_I_mag": 10e-9, "V_Q_mag": 10e-9},
+    #{"gate": "S", "Delta": -10e-6, "V_I_mag": 10e-9, "V_Q_mag": 10e-9},
+    #{"gate": "T", "Delta": -10e-6, "V_I_mag": 10e-9, "V_Q_mag": 10e-9},
+    #{"gate": "H", "Delta": -10e-6,  "V_I_mag": -10e-6, "V_Q_mag": 10e-9},
 ]
 
-# Select an initial state
+# Select an initial state by uncommenting/commenting
 initial_state = basis(2, 0)                                      # initial state |0>
 #initial_state = basis(2, 1)                                      # initial state |1>
 #initial_state = (basis(2, 0) + (1+0j)*basis(2, 1)).unit()        # initial state |+>
@@ -102,7 +98,6 @@ initial_state = basis(2, 0)                                      # initial state
 #initial_state = (basis(2, 0) + (0+1j)*basis(2, 1)).unit()        # initial state |+i>
 #initial_state = (basis(2, 0) + (0-1j)*basis(2, 1)).unit()        # initial state |-i>
 
-# Compute the time-evolved qubit states for the full gate sequence
 def gate_operation(initial_state, gate_sequence):
     t_accumulated = 0
     input_state = initial_state
@@ -123,18 +118,15 @@ def gate_operation(initial_state, gate_sequence):
 
     gate_info = []
 
-    for gate_settings in gate_sequence:         # For each gate in gate_sequence
+    for gate_settings in gate_sequence:         
         gate = gate_settings["gate"]
         Delta_eff = gate_settings["Delta_eff"]
         V_I_mag = gate_settings["V_I_mag"]
         V_Q_mag = gate_settings["V_Q_mag"]
 
-        # Generate tuning parameters (i.e. time duration, I/Q coupling signals and detuning signal) for the current gate.
-        # The time points for each gate in tuning_parameters function always start from t = 0.
         gate_param = tuning_parameters(gate, hbar, Delta_eff, Delta, V_I_mag, V_Q_mag)
         t_current_gate = gate_param["t_points"]
 
-        # Apply the corresponding unitary time-evolution operator to the state produced by the previous gate
         U_gate_lab = unitary_operator_lab(
             t_current_gate, 
             hbar, 
@@ -148,7 +140,6 @@ def gate_operation(initial_state, gate_sequence):
             gate_param["Omega_d"]
             )
 
-        # Apply the rotating-frame unitary time-evolution operator independently so that it can be replaced later
         U_gate_rot = unitary_operator_rot(
             t_current_gate,
             hbar,
@@ -164,10 +155,8 @@ def gate_operation(initial_state, gate_sequence):
             state_t_lab = Qobj(U_gate_lab[:, :, i]) * input_state
             state_t_rot = Qobj(U_gate_rot[:, :, i]) * input_state_rot
 
-            # Shift the time duration of the current gate by accumulated duration of previous gate
             t_sequence = t_accumulated + t_current_gate[i]
 
-            # Store the resulting qubit state and all tuning parameters from each time point
             qubit_states_lab.append(state_t_lab)
             qubit_states_rot.append(state_t_rot)
             t_points_sequence.append(t_sequence)
@@ -195,11 +184,9 @@ def gate_operation(initial_state, gate_sequence):
             "t_duration": t_current_gate[-1]
         })
 
-        # Update the input state so that the final state of this gate becomes the initial state for the next gate
         input_state = Qobj(U_gate_lab[:, :, -1]) * input_state
         input_state_rot = Qobj(U_gate_rot[:, :, -1]) * input_state_rot
 
-        # Update the accumulated time duration of previous gate so that the next gate starts after this gate
         t_accumulated = t_accumulated + t_current_gate[-1]
 
     return {
@@ -241,7 +228,7 @@ y_lab = np.array([expect(sigmay(), state).real for state in qubit_states_lab])
 z_lab = np.array([expect(sigmaz(), state).real for state in qubit_states_lab])
 r_mag_lab = np.sqrt(x_lab**2 + y_lab**2 + z_lab**2)
 
-# Obtain the rotating-frame Bloch-vector coordinates separately from the laboratory-frame coordinates
+# Obtaining the rotating-frame Bloch-vector coordinates separately from the laboratory-frame coordinates
 x_rot = np.array([expect(sigmax(), state).real for state in qubit_states_rot])
 y_rot = np.array([expect(sigmay(), state).real for state in qubit_states_rot])
 z_rot = np.array([expect(sigmaz(), state).real for state in qubit_states_rot])
@@ -263,7 +250,6 @@ fig_bloch.suptitle("Time-Evolution of Qubit State", fontsize=14, y=0.95)
 fig_bloch.text(0.3, 0.9, "In Laboratory Frame", ha="center", va="center", fontsize=12)
 b_lab.font_size = 14
 
-# Create a second Bloch sphere for the state represented in the rotating reference frame
 ax_bloch_rot = fig_bloch.add_subplot(222, projection='3d')
 b_rot = Bloch(axes=ax_bloch_rot)
 fig_bloch.text(0.72, 0.9, "In Rotating Frame", ha="center", va="center", fontsize=12)
@@ -386,7 +372,7 @@ probability_readout = ax_probabilities.text(
 
 
 # ----------------------------- Animating the Bloch sphere and all Time plots -----------------------------
-interval = 10       # Time between frames in milliseconds
+interval = 10       
 
 def update_animation(frame):
     global paused, animation_finished
@@ -524,7 +510,7 @@ button = Button(button_ax, "Play")
 
 button.on_clicked(toggle_animation)
 
-# Stop the animation immediately after the first draw event
+
 def pause_animation_on_first_draw(event):
     global paused, animation_finished, first_draw_cid
 
