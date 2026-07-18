@@ -1,3 +1,2 @@
-# Qubit_simulations
+# Qubit Simulations
 
-meow
