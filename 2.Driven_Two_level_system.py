@@ -11,7 +11,6 @@ hbar = 6.582119569e-16
 E_mean = 0 
 Delta = 100e-6 
 
-# Generating tuning parameters for gate operation
 def tuning_parameters(gate_name, hbar, Delta_eff, Delta, V_I_mag, V_Q_mag):
     V_mag = np.sqrt(V_I_mag**2 + V_Q_mag**2)
     Omega_d = (2/hbar)*(Delta - Delta_eff)
