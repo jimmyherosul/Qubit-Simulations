@@ -145,7 +145,6 @@ def gate_operation(initial_state, gate_sequence):
         # Generate tuning parameters (i.e. time duration, I/Q coupling signals and detuning signal) for the current gate.
         # The time points for each gate in tuning_parameters function always start from t = 0.
         gate_param = tuning_parameters(gate, Delta, V_I_mag, V_Q_mag)
-
         t_current_gate = gate_param["t_points"]
 
         # Apply the corresponding unitary time-evolution operator to the state produced by the previous gate
