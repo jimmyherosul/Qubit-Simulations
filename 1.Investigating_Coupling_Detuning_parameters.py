@@ -42,42 +42,10 @@ def unitary_operator(t, hbar, E_mean, V_I_amplitude, V_Q_amplitude, Omega_r, Ome
 
 # ----------------------------- Time evolution of Qubit state -----------------------------
 gates_in_parallel = [
-    {
-        "t_duration": 2.5e-11,
-        "Delta": -1e-6,
-        "V_I_mag": 10e-6,
-        "V_Q_mag": 1e-6,
-        "initial_state": basis(2, 0),
-        "initial_state_name": "|0>",
-        "initial_state_label": r"$|0\rangle$"
-    },
-    {
-        "t_duration": 2.5e-11,
-        "Delta": -1e-6,
-        "V_I_mag": 20e-6,
-        "V_Q_mag": 1e-6,
-        "initial_state": basis(2, 0),
-        "initial_state_name": "|0>",
-        "initial_state_label": r"$|0\rangle$"
-    },
-    {
-        "t_duration": 2.5e-11,
-        "Delta": -1e-6,
-        "V_I_mag": 30e-6,
-        "V_Q_mag": 1e-6,
-        "initial_state": basis(2, 0),
-        "initial_state_name": "|0>",
-        "initial_state_label": r"$|0\rangle$"
-    },
-    {
-        "t_duration": 2.5e-11,
-        "Delta": -1e-6,
-        "V_I_mag": 40e-6,
-        "V_Q_mag": 1e-6,
-        "initial_state": basis(2, 0),
-        "initial_state_name": "|0>",
-        "initial_state_label": r"$|0\rangle$"
-    },
+    {"t_duration": 2.5e-11, "Delta": -1e-6, "V_I_mag": 10e-6, "V_Q_mag": 1e-6, "initial_state": basis(2, 0), "initial_state_name": "|0>", "initial_state_label": r"$|0\rangle$"},
+    {"t_duration": 2.5e-11, "Delta": -1e-6, "V_I_mag": 20e-6, "V_Q_mag": 1e-6, "initial_state": basis(2, 0), "initial_state_name": "|0>", "initial_state_label": r"$|0\rangle$"},
+    {"t_duration": 2.5e-11, "Delta": -1e-6, "V_I_mag": 30e-6, "V_Q_mag": 1e-6, "initial_state": basis(2, 0), "initial_state_name": "|0>", "initial_state_label": r"$|0\rangle$"},
+    {"t_duration": 2.5e-11, "Delta": -1e-6, "V_I_mag": 40e-6, "V_Q_mag": 1e-6, "initial_state": basis(2, 0), "initial_state_name": "|0>", "initial_state_label": r"$|0\rangle$" },
 ]
 
 def gate_operation(gate_settings):
