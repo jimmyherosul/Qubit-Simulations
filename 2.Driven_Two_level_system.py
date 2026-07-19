@@ -7,9 +7,9 @@ from qutip import Bloch, Qobj, basis, expect, sigmax, sigmay, sigmaz, ket2dm
 
 
 # ----------------------------- Parameters -----------------------------
-hbar = 6.582119569e-16
-E_mean = 0 
-Delta = 100e-6 
+hbar = 6.582119569e-16        # REDUCED Planck constant in eV*s
+E_mean = 0                    # Mean unperturbed energy of the two basis states |0> and |1>
+Delta = 100e-6                # Instrinsic detuning of the two-level system
 
 def tuning_parameters(gate_name, hbar, Delta_eff, Delta, V_I_mag, V_Q_mag):
     V_mag = np.sqrt(V_I_mag**2 + V_Q_mag**2)
