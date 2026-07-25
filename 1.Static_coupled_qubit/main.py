@@ -22,12 +22,12 @@ data_points = 50              # Number of data points across time
 interval = 1                  # Time interval (in milliseconds) between time frames in animation   
 
 # ----------------------------- Input parameters -----------------------------
-#initial_state = basis(2, 0)                                      # initial state |0>
-#initial_state = basis(2, 1)                                      # initial state |1>
-#initial_state = (basis(2, 0) + (1+0j)*basis(2, 1)).unit()        # initial state |+>
-#initial_state = (basis(2, 0) + (-1+0j)*basis(2, 1)).unit()       # initial state |->
-#initial_state = (basis(2, 0) + (0+1j)*basis(2, 1)).unit()        # initial state |+i>
-#initial_state = (basis(2, 0) + (0-1j)*basis(2, 1)).unit()        # initial state |-i>
+# basis(2, 0)                                      # initial state |0>
+# basis(2, 1)                                      # initial state |1>
+# (basis(2, 0) + (1+0j)*basis(2, 1)).unit()        # initial state |+>
+# (basis(2, 0) + (-1+0j)*basis(2, 1)).unit()       # initial state |->
+# (basis(2, 0) + (0+1j)*basis(2, 1)).unit()        # initial state |+i>
+# (basis(2, 0) + (0-1j)*basis(2, 1)).unit()        # initial state |-i>
 
 # Select the test simulations to run in parallel and set their respective input parameters (i.e. initial state, pulse durations, detunings and I/Q coupling strengths)
 input_parameters_in_parallel = [
