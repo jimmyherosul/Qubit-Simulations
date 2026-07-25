@@ -1,2 +1,2 @@
-# Qubit Simulations
+# Qubit Simulator
 
