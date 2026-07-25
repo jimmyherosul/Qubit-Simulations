@@ -14,10 +14,6 @@ from matplotlib.animation import FuncAnimation
 import matplotlib.pyplot as plt
 import numpy as np
 
-# To check the version of qutip
-#import qutip
-#print(qutip.__version__)
-
 # ----------------------------- Fixed parameters -----------------------------
 hbar = 6.582119569e-16        # REDUCED Planck constant in eV*s
 E_mean = 0                    # For simplicity, the mean unperturbed energy of the two basis states |0> and |1> is set to zero
