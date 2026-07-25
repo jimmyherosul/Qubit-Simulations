@@ -5,7 +5,7 @@ from Physics.vector_coordinates import vector_coordinates
 from Physics.state_probabilities import state_probabilities
 from Plots.bloch_sphere_plot import create_bloch_sphere, update_bloch_sphere
 from Plots.tuning_signal_plot import create_signal_plot, update_signal_plot
-from Plots.bloch_coordinate_plot import create_coordinate_plot, update_coordinate_plot
+from Plots.vector_coordinate_plot import create_coordinate_plot, update_coordinate_plot
 from Plots.state_probability_plot import create_probability_plot, update_probability_plot
 from Plots.animation_control import animation_control
 
