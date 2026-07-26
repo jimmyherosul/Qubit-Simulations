@@ -117,10 +117,7 @@ for sim_index, test_sim in enumerate(results_in_parallel):
     # Append the Bloch spheres and the results of current test simulation
     test_sim_properties.append({
         "test_sim": test_sim, 
-        "bloch_sphere_test": bloch_sphere_test,
-        "coordinates_test": test_sim["coordinates"],
-        "probabilities_test": test_sim["probabilities"],
-        "colour_test": test_sim["curve_colour"] 
+        "bloch_sphere_test": bloch_sphere_test
         })
 
 # ----------------------------- Plot Energy-Delta diagram -----------------------------
@@ -169,7 +166,7 @@ for sim_index, properties in enumerate(test_sim_properties):
     test_sim = properties["test_sim"]
     V_mag_ueV = int(round(test_sim["V_mag"]*1e6))
     Delta_ueV = test_sim["Delta"]*1e6
-    colour_test = properties["colour_test"]
+    colour_test = test_sim["curve_colour"]
 
     # Plot the Bloch-vector coordinates with the corresponding colour for current test simulation
     ax_coordinates = fig_time.add_subplot(fig_time_grid[0, sim_index])
@@ -195,9 +192,9 @@ def update_animation(frame):
         test_sim = properties["test_sim"]
 
         qubit_states_test = test_sim["qubit_states"]
-        coordinates_test = properties["coordinates_test"]
-        probabilities_test = properties["probabilities_test"]
-        colour_test = properties["colour_test"]
+        coordinates_test = test_sim["coordinates"]
+        probabilities_test = test_sim["probabilities"]
+        colour_test = test_sim["curve_colour"]
 
         # Update Bloch sphere and all Time plots frame by frame for current test simulation
         update_bloch_sphere(frame, properties["bloch_sphere_test"], qubit_states_test[frame], coordinates_test, colour_test, colour_test)
@@ -208,7 +205,7 @@ def update_animation(frame):
 
     # Stop running the animation after updating the final frame 
     if frame >= n_frames - 1:
-        anim.event_source.stop()
+        controller.finish_animation()
 
 # Run the animation of Bloch spheres and all Time plots, with the Pause/Play control
 anim = FuncAnimation(fig_bloch, update_animation, frames=n_frames, interval=interval, blit=False, repeat=False)
