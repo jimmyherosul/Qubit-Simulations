@@ -112,12 +112,12 @@ fig_bloch_grid = fig_bloch.add_gridspec(1, len(results_in_parallel)+1, width_rat
 
 # Create Bloch sphere for each test simulation running in parallel
 for sim_index, test_sim in enumerate(results_in_parallel):
-    bloch_sphere_test = create_bloch_sphere(figure=fig_bloch, subplot_position=fig_bloch_grid[0, sim_index+1])
+    bloch_test_view = create_bloch_sphere(figure=fig_bloch, subplot_position=fig_bloch_grid[0, sim_index+1])
 
     # Append the Bloch spheres and the results of current test simulation
     test_sim_properties.append({
         "test_sim": test_sim, 
-        "bloch_sphere_test": bloch_sphere_test
+        "bloch_test_view": bloch_test_view
         })
 
 # ----------------------------- Plot Energy-Delta diagram -----------------------------
