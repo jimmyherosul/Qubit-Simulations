@@ -161,6 +161,8 @@ fig_time_grid = fig_time.add_gridspec(2, len(results_in_parallel), wspace=0.30, 
 
 # For each test simulation
 for sim_index, properties in enumerate(test_sim_properties):
+    ax_coordinates = fig_time.add_subplot(fig_time_grid[0, sim_index])
+    ax_probabilities = fig_time.add_subplot(fig_time_grid[1, sim_index], sharex=ax_coordinates)
 
     # Retrieve the results for current test simulation and its corresponding colour code  
     test_sim = properties["test_sim"]
@@ -169,13 +171,11 @@ for sim_index, properties in enumerate(test_sim_properties):
     colour_test = test_sim["curve_colour"]
 
     # Plot the Bloch-vector coordinates with the corresponding colour for current test simulation
-    ax_coordinates = fig_time.add_subplot(fig_time_grid[0, sim_index])
     coordinate_plot_test = create_coordinate_plot(ax_coordinates, test_sim, fr"$|V|={V_mag_ueV}$ ueV, $\Delta={Delta_ueV:g}$ ueV", False)
     ax_coordinates.title.set_color(colour_test)
     properties["coordinate_plot_test"] = coordinate_plot_test
 
     # Plot the state probabilities with the corresponding colour for current test simulation
-    ax_probabilities = fig_time.add_subplot(fig_time_grid[1, sim_index], sharex=ax_coordinates)
     probability_plot_test = create_probability_plot(ax_probabilities, test_sim, "", False)
     properties["probability_plot_test"] = probability_plot_test
 
