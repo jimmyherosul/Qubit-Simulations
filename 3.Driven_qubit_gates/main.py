@@ -232,7 +232,7 @@ def update_animation(frame):
 
     # Stop running the animation after updating the final frame
     if frame >= n_frames - 1:
-        anim.event_source.stop()
+        controller.finish_animation()
 
 # Run the animation of Bloch spheres and all Time plots, with the Pause/Play control
 anim = FuncAnimation(fig_bloch, update_animation, frames=n_frames, interval=interval, blit=False, repeat=False)
