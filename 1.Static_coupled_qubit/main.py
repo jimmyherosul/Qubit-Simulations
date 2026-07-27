@@ -74,7 +74,7 @@ def test_operation(input_parameters_in_parallel):
             qubit_state_t = Qobj(U_static[:, :, i]) * input_state
             qubit_states_test.append(qubit_state_t)
 
-        # Append the complete results of the current test simulation to the collection of parallel simulation results
+        # Store all results and parameters of the current test simulation in the collection of parallel simulation results
         results_in_parallel.append({
             "t_points": np.array(t_points),
             "Delta": Delta,
@@ -114,7 +114,7 @@ fig_bloch_grid = fig_bloch.add_gridspec(1, len(results_in_parallel)+1, width_rat
 for sim_index, test_sim in enumerate(results_in_parallel):
     bloch_test_view = create_bloch_sphere(figure=fig_bloch, subplot_position=fig_bloch_grid[0, sim_index+1])
 
-    # Append the Bloch spheres and the results of current test simulation
+    # Store the Bloch spheres and the results of current test simulation
     test_sim_properties.append({
         "test_sim": test_sim, 
         "bloch_test_view": bloch_test_view
