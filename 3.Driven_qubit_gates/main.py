@@ -91,7 +91,7 @@ def gate_operation(initial_state, input_parameters_in_series):
         # Generate the tuning parameters of the current gate from the input parameters applied over the entire time duration
         tuning_param = tuning_parameters(gate, Delta_eff, V_I_mag, V_Q_mag, hbar, data_points, Delta)
 
-        # Extract the tuning parameters of the current gate
+        # Retrieve the tuning parameters of the current gate
         t_points = tuning_param["t_points"]
         Delta_eff_pulse = tuning_param["Delta_eff_pulse"]
         V_I_pulse = tuning_param["V_I_pulse"]
