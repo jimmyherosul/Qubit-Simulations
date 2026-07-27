@@ -40,7 +40,7 @@ input_parameters_in_parallel = [
 # Compute the time-evolved qubit states for all independent test simulations in parallel
 def test_operation(input_parameters_in_parallel):
 
-    # Initialize list for storing the results from all test simulations in parallel
+    # Initialize list for storing the results of all parallel test simulations
     results_in_parallel = []
 
     # For each independent test simulation
