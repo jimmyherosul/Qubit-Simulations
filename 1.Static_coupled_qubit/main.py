@@ -57,7 +57,7 @@ def test_operation(input_parameters_in_parallel):
         # Generate the tuning parameters of the current test simulation from the input parameters applied over the entire time duration
         tuning_param = tuning_parameters(t_duration, Delta, V_I_mag, V_Q_mag, hbar, data_points)
 
-        # Extract the tuning parameters of the current test simulation
+        # Retrieve the tuning parameters of the current test simulation
         t_points = tuning_param["t_points"]
         V_I_pulse = tuning_param["V_I_pulse"]
         V_Q_pulse = tuning_param["V_Q_pulse"]
