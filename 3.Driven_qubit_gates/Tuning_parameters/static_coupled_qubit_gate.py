@@ -45,10 +45,6 @@ def tuning_parameters(gate_name, Delta, V_I_mag, V_Q_mag, hbar, data_points):
     elif gate_name == 'H':      
         t_duration = (np.pi/2)*(2/Omega_r)
 
-    # For I gate: Delta, V_I_mag, and V_Q_mag can be set to any values as long as they are NOT ALL ZERO, since t_duration = 0
-    elif gate_name == 'I':   
-        t_duration = 0*(2/Omega_r)
-
     t_points = np.linspace(0, t_duration, data_points) 
     Delta_pulse = np.full_like(t_points, Delta)
     V_I_pulse = np.full_like(t_points, V_I_mag)
