@@ -197,7 +197,7 @@ def update_animation(frame):
         colour_test = test_sim["curve_colour"]
 
         # Update Bloch sphere and all Time plots frame by frame for current test simulation
-        update_bloch_sphere(frame, properties["bloch_sphere_test"], qubit_states_test[frame], coordinates_test, colour_test, colour_test)
+        update_bloch_sphere(frame, properties["bloch_test_view"], qubit_states_test[frame], coordinates_test, colour_test, colour_test)
         update_coordinate_plot(frame, test_sim, properties["coordinate_plot_test"], coordinates_test)
         update_probability_plot(frame, test_sim, properties["probability_plot_test"], probabilities_test, test_sim["Omega_r"], "Omega_r")
 
