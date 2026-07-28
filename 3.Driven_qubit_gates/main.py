@@ -107,16 +107,13 @@ def gate_operation(initial_state, input_parameters_in_series):
         qubit_states_gate_rot = []
         qubit_states_gate_lab = []
 
-        # Compute the time-evolved states over all time points of the current gate in the rotating frame
+        # Compute the time-evolved states over all time points of the current gate in both rotating and laboratory frames
         U_driven_rot = static_unitary_operator(t_points, hbar, E_mean, V_I_pulse, V_Q_pulse, Omega_R, Omega_eff)
-        for i in range(len(t_points)):
-            qubit_state_t_rot = Qobj(U_driven_rot[:, :, i]) * input_state_rot
-            qubit_states_gate_rot.append(qubit_state_t_rot)
-
-        # Compute the time-evolved states over all time points of the current gate in the laboratory frame
         U_driven_lab = driven_unitary_operator(t_points, hbar, E_mean, V_I_pulse, V_Q_pulse, V_signal_lab, V_signal_lab_90, Omega_R, Omega_eff, Omega_d)
         for i in range(len(t_points)):
+            qubit_state_t_rot = Qobj(U_driven_rot[:, :, i]) * input_state_rot
             qubit_state_t_lab = Qobj(U_driven_lab[:, :, i]) * input_state_lab
+            qubit_states_gate_rot.append(qubit_state_t_rot)
             qubit_states_gate_lab.append(qubit_state_t_lab)
         
         # Shift the elapsed time points of the current gate by the time duration accumulated from previous gates
