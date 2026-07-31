@@ -13,31 +13,9 @@ def create_probability_plot(ax_probabilities, sequence_param, title, show_readou
 
     probability_function = {}
 
-    probability_function["p0"], = ax_probabilities.plot([], [], label=r"$P_0^{\mathrm{Num}}(t)$")
-    probability_function["p1"], = ax_probabilities.plot([], [], label=r"$P_1^{\mathrm{Num}}(t)$")
+    probability_function["p0"], = ax_probabilities.plot([], [], label=r"$P_0(t)$")
+    probability_function["p1"], = ax_probabilities.plot([], [], label=r"$P_1(t)$")
     probability_function["p_total"], = ax_probabilities.plot([], [], color="black", label=r"$P_{\mathrm{total}}(t)$")
-
-    # Fixed analytical Rabi-oscillation curves
-    if sequence_param["rabi_probabilities"] is not None:
-        t_points_ns = sequence_param["t_points"] * 1e9
-
-        probability_function["rabi_p0"], = ax_probabilities.plot(
-            t_points_ns,
-            sequence_param["rabi_probabilities"]["p0"],
-            linestyle="--",
-            linewidth=1.5,
-            color=probability_function["p0"].get_color(),
-            label=r"$P_0^{analy}(t)$"
-        )
-
-        probability_function["rabi_p1"], = ax_probabilities.plot(
-            t_points_ns,
-            sequence_param["rabi_probabilities"]["p1"],
-            linestyle="--",
-            linewidth=1.5,
-            color=probability_function["p1"].get_color(),
-            label=r"$P_1^{analy}(t)$"
-        )
 
     time_cursor = ax_probabilities.axvline(sequence_param["t_points"][0]*1e9, color='r', linestyle='--', linewidth=1.5)
     probability_cursor, = ax_probabilities.plot([], [], 'ro', markersize=4)
@@ -88,8 +66,8 @@ def update_probability_plot(frame, sequence_param, plot_objects, probability_dat
         plot_objects["readout"].set_text(
             "Cursor\n"
             f"t = {t_current_ns:.3f} ns\n"
-            rf"$P_0^{{\mathrm{{Num}}}} = {p0[frame]:.3f}$" "\n"
-            rf"$P_1^{{\mathrm{{Num}}}} = {p1[frame]:.3f}$" "\n"
-            rf"$P_{{\mathrm{{total}}}} = {p_total[frame]:.3f}$" "\n"
+            f"P0 = {p0[frame]:.3f}\n"
+            f"P1 = {p1[frame]:.3f}\n"
+            f"P_total = {p_total[frame]:.3f}\n"
             f"{rabi_frequency_label} = {rabi_freq_ghz:.3f} GHz"
         )
